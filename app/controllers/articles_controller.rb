@@ -21,15 +21,18 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    check_owner(@article)
   end
 
   def update
-    if @article.update(article_params)
-      flash[:success] = "Article has been updated"
-      redirect_to @article
-    else
-      flash.now[:danger] = "Article has not been updated"
-      render :edit
+    unless check_owner(@article)
+      if @article.update(article_params)
+        flash[:success] = "Article has been updated"
+        redirect_to @article
+      else
+        flash.now[:danger] = "Article has not been updated"
+        render :edit
+      end
     end
   end
 
@@ -50,5 +53,14 @@ class ArticlesController < ApplicationController
 
     def set_article
       @article = Article.find(params[:id])
+    end
+
+    def check_owner article
+      if article.user != current_user
+        flash[:danger] = "You can only edit your own article."
+        redirect_to root_path
+      else
+        false
+      end
     end
 end
