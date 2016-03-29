@@ -62,3 +62,10 @@ group :test do
   gem 'capybara', '2.4.4'
 end
 
+group :production do
+  # Use postgresql as the database for Active Record
+  gem 'pg'
+  gem 'rails_12factor'
+end
+
+
