@@ -41,7 +41,8 @@ group :development, :test do
   gem 'rspec-rails', '3.2.3'
   gem 'guard-rspec', require: false
   gem 'spring-commands-rspec'
-
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
   gem 'rake', '10.5.0'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
